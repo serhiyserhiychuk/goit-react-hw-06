@@ -5,7 +5,7 @@ import ContactList from "./components/ContactList/ContactList";
 import { useState, useEffect } from "react";
 
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
+  const [contacts] = useState(() => {
     const savedContacts = window.localStorage.getItem("contacts");
 
     if (savedContacts !== null) {
@@ -24,33 +24,13 @@ const App = () => {
     window.localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
-  const [searchedContacts, setSearchedContacts] = useState("");
-
-  const correctedContacts =
-    searchedContacts.charAt(0).toUpperCase() +
-    searchedContacts.slice(1).toLowerCase();
-  const renderContacts = contacts.filter((contact) =>
-    contact.name.includes(correctedContacts)
-  );
-
-  const deleteContact = (id) => {
-    const newContacts = contacts.filter(
-      (stableContact) => stableContact.id !== id
-    );
-    setContacts(newContacts);
-  };
-
-  const addContact = (contactToAdd) => {
-    setContacts([...contacts, contactToAdd]);
-  };
-
   return (
     <>
       <div>
         <h1>Phonebook</h1>
-        <ContactForm contacts={contacts} addContact={addContact} />
-        <SearchBox value={searchedContacts} onChange={setSearchedContacts} />
-        <ContactList renderContacts={renderContacts} onDelete={deleteContact} />
+        <ContactForm />
+        <SearchBox />
+        <ContactList />
       </div>
     </>
   );
