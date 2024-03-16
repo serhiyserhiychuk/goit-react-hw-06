@@ -10,10 +10,7 @@ export default function SearchBox() {
   const filter = useSelector(selectNameFilter);
   const searchId = useId();
   const handleChange = (e) => {
-    const contactFilter =
-      e.target.value.charAt(0).toUpperCase() +
-      e.target.value.slice(1).toLowerCase();
-    dispatch(changeFilter(contactFilter));
+    dispatch(changeFilter(e.target.value));
   };
   return (
     <div className={css.container}>
